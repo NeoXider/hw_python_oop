@@ -1,6 +1,6 @@
 attrs==22.1.0
 flake8==5.0.4
-iniconfig==1.1.1
+iniconfig==1.1.1python -m venv env
 mccabe==0.7.0
 packaging==21.3
 pluggy==1.0.0
