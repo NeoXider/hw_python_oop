@@ -177,11 +177,7 @@ class Swimming(Training):
                 / self.duration
             )
         else:
-            (
-                    self.length_pool
-                    * self.count_pool
-                    / self.M_IN_KM
-            )
+            (self.length_pool * self.count_pool / self.M_IN_KM)
             print("Error in duration: /0 -> {get_mean_speed}")
 
 
