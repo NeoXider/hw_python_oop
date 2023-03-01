@@ -135,8 +135,8 @@ class SportsWalking(Training):
 class Swimming(Training):
     """Тренировка: плавание."""
 
-    SPEED_CONSTANCE: float = 1.1
-    COEF_STEP: float = 2.0
+    SPEED: float = 1.1
+    STEP: float = 2.0
     LEN_STEP: float = 1.38
 
     def __init__(
@@ -160,8 +160,8 @@ class Swimming(Training):
         """Получить количество затраченных калорий."""
 
         return (
-            (self.get_mean_speed() + self.SPEED_CONSTANCE)
-            * self.COEF_STEP
+            (self.get_mean_speed() + self.SPEED)
+            * self.STEP
             * self.weight
             * self.duration
         )
@@ -177,6 +177,11 @@ class Swimming(Training):
                 / self.duration
             )
         else:
+            (
+                    self.length_pool
+                    * self.count_pool
+                    / self.M_IN_KM
+            )
             print("Error in duration: /0 -> {get_mean_speed}")
 
 
@@ -186,22 +191,22 @@ def read_package(
 ) -> Training:
     """Прочитать данные полученные от датчиков."""
 
-    training: dict[str, Training] = {
+    TRAININGS: dict[str, Training] = {
         'RUN': Running,
         'WLK': SportsWalking,
         'SWM': Swimming,
     }
-    if training.get(workout_type) is None:
+    if TRAININGS.get(workout_type) is None:
         return None
-    return training.get(workout_type)(*data)
+    return TRAININGS.get(workout_type)(*data)
 
 
 def main(
-    training: Training,
+    TRAININGS: Training,
 ) -> None:
     """Главная функция."""
 
-    info: str = training.show_training_info()
+    info: str = TRAININGS.show_training_info()
     print(info.get_message())
 
 
@@ -213,5 +218,5 @@ if __name__ == '__main__':
     ]
 
     for workout_type, data in packages:
-        training = read_package(workout_type, data)
-        main(training)
+        TRAININGS = read_package(workout_type, data)
+        main(TRAININGS)
